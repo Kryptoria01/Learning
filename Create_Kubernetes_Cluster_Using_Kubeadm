@@ -195,7 +195,7 @@ cgroupDriver: systemd
 	
 10. Join Woker Nodes (Only Workers)
 	kubeadm join 172.31.23.205:6443 --token w8oqel.er7lqkxx63dhxszy \
-	--discovery-token-ca-cert-hash sha256:c084e55cbad90122e8e2e2ad7a405537d6080d8a3cf4f09417ba3132079242dd --ignore-preflight-errors=all
+	--discovery-token-ca-cert-hash sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --ignore-preflight-errors=all
 	//export KUBECONFIG=/etc/kubernetes/kubelet.conf (show kublet.conf on master)
 	kubectl get nodes
 	
