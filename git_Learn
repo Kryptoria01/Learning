@@ -5,6 +5,12 @@ sudo apt install git
 git config --global user.name "Github_UserName"
 git config --global user.email "Github_Email"
 
+##git config file permission denied
+git config --global core.fileMode false	//file permission disable mode
+	If you cannot effect
+vi .git/config
+ filemode = true to filemode = false
+
 ##git repo initializing (create folder and enter)
 mkdir test
 cd test
