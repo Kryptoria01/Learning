@@ -9,8 +9,7 @@ Need environment
 sudo apt update && sudo apt upgrade -y
 
 ##install freeradius
-sudt
- apt -y install freeradius freeradius-utils
+sudo apt -y install freeradius freeradius-utils
 #sudo vi /etc/freeradius/3.0/clients.conf 	//for check freeradius clients.conf *
 sudo systemctl status freeradius.service	//to check running service
 sudo vi /etc/freeradius/3.0/users		//to add user
@@ -29,7 +28,7 @@ sudo mysql_secure_installation		//see Installing_MySQL
 sudo systemctl restart mysql.service
 mysql -u root -p
   create database radius;
-  show databses;
+  show databases;
   exit
 
 ##change freeradius setup.sql
@@ -51,8 +50,42 @@ sudo su
 mysql -u root -p radius < /etc/freeradius/3.0/mods-config/sql/main/mysql/setup.sql
 mysql -u root -p radius < /etc/freeradius/3.0/mods-config/sql/main/mysql/schema.sql
 exit
-mysql -u root -p -e "use radius;show tables;"		//check db 
+mysql -u root -p -e "use radius;show tables;"		//check db
+exit
+ 
 sudo vi /etc/freeradius/3.0/mods-available/sql 		//chnge file of content **
+	sql {
+		#dialect = "sqlite"		//add #
+		dialect ="mysql"		//add this line
+	
+		#driver = "rlm_sql_null"	//add #
+        	driver = "rlm_sql_${dialect}"	//remove #
+		
+	        mysql {
+                # If any of the files below are set, TLS encryption is enabled
+                #tls {									//add #
+                #       ca_file = "/etc/ssl/certs/my_ca.crt"				//add #
+                #       ca_path = "/etc/ssl/certs/"					//add #
+                #       certificate_file = "/etc/ssl/certs/private/client.crt"		//add #
+                #       private_key_file = "/etc/ssl/certs/private/client.key"		//add #
+                #       cipher = "DHE-RSA-AES256-SHA:AES128-SHA"			//add #
+
+                #       tls_required = yes						//add #
+                #       tls_check_cert = no						//add #
+                #       tls_check_cert_cn = no						//add #
+                #}									//add #
+		
+		        server = "localhost"						//remove #
+	        	port = 3306							//remove #
+ 		       	login = "radius"						//remove #
+        		password = "radpass"						//remove #
+
+		logfile = ${logdir}/sqllog.sql						//remove #
+
+		read_clients = yes							//remove #
+
+			
+
 sudo ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sql 	//create symbolic link
 sudo ls -alh /etc/freeradius/3.0/mods-enabled		//show file list and user
 sudo chown -R freerad:freerad /etc/freeradius/3.0/mods-enabled/sql	//change owner root to freeradius
@@ -71,6 +104,7 @@ sudo vi /var/www/html/test.php
 	<?php phpinfo() ; ?>
 sudo chown -R www-data:www-data /var/www/html/test.php
         *test the web ser with your ip/test.php*
+sudo rm /var/www/html/test.php
 
 sudo apt -y install wget unzip
 wget https://github.com/lirantal/daloradius/archive/master.zip
@@ -90,7 +124,7 @@ sudo vim /var/www/html/daloradius/library/daloradius.conf.php
 	$configValues['CONFIG_DB_HOST'] = 'localhost';
 	$configValues['CONFIG_DB_PORT'] = '3306';
 	$configValues['CONFIG_DB_USER'] = 'radius';
-	$configValues['CONFIG_DB_PASS'] = 'Str0ng@pass#2';
+	$configValues['CONFIG_DB_PASS'] = 'your_password';
 	$configValues['CONFIG_DB_NAME'] = 'radius';
 sudo ls -l /var/www/html/daloradius/library/daloradius.conf.php
 	-rw-rw-r-- 1 root root 6391 Jan 27 19:17 /var/www/html/daloradius/library/daloradius.conf.php
@@ -98,6 +132,13 @@ sudo ls -l /var/www/html/daloradius/library/daloradius.conf.php
 sudo vi /etc/apache2/sites-available/000-default.conf
 DocumentRoot /var/www/html/daloradius/
 sudo systemctl restart freeradius.service apache2
+
+sudo ufw enable
+sudo ufw allow 1812
+sudo ufw allow 1813
+sudo ufw allow 80
+sudo ufw allow 22
+
 
 
 
