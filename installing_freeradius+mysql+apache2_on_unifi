@@ -3,12 +3,13 @@ Need environment
 -mysql
 -daloradius 	//UI
 -apacha2
--php2
+-php7.4
 
 ##Install update and upgrade
 sudo apt update && sudo apt upgrade -y
 
 ##install freeradius
+sudo apt policy freeradius
 sudo apt -y install freeradius freeradius-utils
 #sudo vi /etc/freeradius/3.0/clients.conf 	//for check freeradius clients.conf *
 sudo systemctl status freeradius.service	//to check running service
@@ -28,6 +29,7 @@ sudo mysql_secure_installation		//see Installing_MySQL
 sudo systemctl restart mysql.service
 mysql -u root -p
   create database radius;
+  FLUSH PRIVILEGES;
   show databases;
   exit
 
@@ -37,7 +39,7 @@ sudo vi /etc/freeradius/3.0/mods-config/sql/main/mysql/setup.sql 	//change under
 	CREATE USER 'radius'@'localhost' IDENTIFIED BY 'Str0ng@pass#2';
 
 	# The server can read any table in SQL
-	GRANT ALL ON radius.* TO 'radius'@'localhost';
+	GRANT ALL PRIVILEGES ON radius.* TO 'radius'@'localhost' WITH GRANT OPTION;
 
 	# The server can write to the accounting and post-auth logging table.
 	#
@@ -75,10 +77,10 @@ sudo vi /etc/freeradius/3.0/mods-available/sql 		//chnge file of content **
                 #       tls_check_cert_cn = no						//add #
                 #}									//add #
 		
-		        server = "localhost"						//remove #
-	        	port = 3306							//remove #
+		        	server = "localhost"					//remove #
+	        		port = 3306							//remove #
  		       	login = "radius"						//remove #
-        		password = "radpass"						//remove #
+        			password = "your_password"				//remove #
 
 		logfile = ${logdir}/sqllog.sql						//remove #
 
@@ -87,11 +89,11 @@ sudo vi /etc/freeradius/3.0/mods-available/sql 		//chnge file of content **
 			
 
 sudo ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sql 	//create symbolic link
-sudo ls -alh /etc/freeradius/3.0/mods-enabled		//show file list and user
+sudo ls -alh /etc/freeradius/3.0/mods-enabled				//show file list and user
 sudo chown -R freerad:freerad /etc/freeradius/3.0/mods-enabled/sql	//change owner root to freeradius
-sudo ls -alh /etc/freeradius/3.0/mods-enabled           //show file list and user
-sudo vi /etc/freeradius/3.0/sites-available/default	//remove "-" from authorize's and account's  sql
-sudo vi /etc/freeradius/3.0/sites-available/inner-tunnel	//remove "-" from authorize's sql
+sudo ls -alh /etc/freeradius/3.0/mods-enabled           		//show file list and user
+sudo vi /etc/freeradius/3.0/sites-available/default			//remove "-" from authorize's and accounting's  sql
+sudo vi /etc/freeradius/3.0/sites-available/inner-tunnel		//remove "-" from authorize's sql
 sudo systemctl restart freeradius
 sudo systemctl status freeradius
 

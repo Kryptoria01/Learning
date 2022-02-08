@@ -1,0 +1,10 @@
+#Introduction to Docker Images
+		|----->	CMD Layer
+		|----->	EXPOSE Layer
+Docker Image ---|----->	WORKDIR Layer
+		|----->	RUN Layer
+		|----->	Base Image Layer
+		|----->	bootfs
+
+
+
