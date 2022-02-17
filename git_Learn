@@ -123,6 +123,34 @@ git remote add origin https://github.com/Kryptoria01/xxxxx.git
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 git push -u origin main		//git push (you must be fill token instead of password)
 
+--------------------------------------------
+
+##Git branch rename
+git branch -m old_name new_name
+
+-------------------------------------------
+
+##Git branch delete
+git branch -d name
+
+-------------------------------------------
+
+##Ignore local file and folder form Git Repo
+touch .gitignore
+vi .gitignore		// Enter .gitignore and add ignore file and folder name line by line
+
+-------------------------------------------
+
+##Git Action
+
+-------------------------------------------
+
+##Git HEAD 		//The HEAD in Git is the pointer to the current branch reference, which is in turn a pointer to the last commit you made.
+git log			//Point last commit HEAD and the last second commit point HEAD~1
+git show HEAD		//Point last commit. Show changing file and entry data
+git show HEAD~1	//Point last second commit. Show changing file and entry data
+git difftool HEAD HEAD~1		//if you modified same file and add two commit, compare two file.
+
   
 
 

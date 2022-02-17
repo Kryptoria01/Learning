@@ -137,6 +137,16 @@ mysql -u test -p
 	Bye
 	
 							-------------------End of sectiosn------------------
+							
+Mariadb without sudo
+$ > sudo mysql -uroot
+mysql > SELECT User, Host FROM mysql.user;
+mysql > DROP USER 'root'@'localhost';
+mysql > CREATE USER 'root'@'localhost' IDENTIFIED BY 'STRING-PASSWORD-NYA';
+mysql > GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+mysql > FLUSH PRIVILEGES;
+mysql > exit
+$ > mysql -uroot
 	
 
 
