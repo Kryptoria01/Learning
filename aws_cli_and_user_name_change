@@ -1,0 +1,21 @@
+#Install awscli
+sudo apt install awscli
+
+#Check aws version
+aws --version
+
+#awscli configure
+aws configure
+AWS Access Key ID [None]:
+AWS Secret Access Key [None]:
+Default region name [None]: ap-southeast-1
+Default output format [None]: json
+
+#show instance status
+aws ec2 describe-instances
+
+#Show IAM Users
+aws iam list-users
+
+#Change User Name
+aws iam update-user --user-name old_name --new-user-name new_name
