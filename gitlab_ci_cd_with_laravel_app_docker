@@ -1,3 +1,5 @@
+https://gitlab.com/amitavroy7
+
 ##Download laravel_project using docker
 docker run --rm -v $(pwd):/opt -w /opt shippingdocker/php-composer:latest composer create-project laravel/laravel MyCodebase
 
@@ -69,6 +71,8 @@ Enter a description for the runner:
 [ip-172-31-20-171]: GitlabCICDDemo
 Enter tags for the runner (comma-separated):
 master
+Enter optional maintenance note for the runner:
+master
 Registering runner... succeeded                     runner=7Lm2MDn9
 Enter an executor: docker+machine, docker-ssh+machine, kubernetes, custom, parallels, ssh, virtualbox, docker, docker-ssh, shell:
 docker
@@ -120,6 +124,64 @@ click Save changes
 su developer
 cd /home/developer/
 ssh-keygen -b 4096
+cat .ssh/id_rsa.pub >> .ssh/authorized_keys
 cd .ssh/
 cat id_rsa
+copy id_rsa
+
+#Add ssh key pair to gitlab
+goto gitlab your_project
+click setting
+click ci/cd
+expand variables
+Click "Add variable"
+Add Key => ID_RSA
+Add Value => Paste id_rsa key
+Choose Type => File
+Check mark Protact variable form Flags
+Click "Add variable"
+Click "Add variable"
+Add Key => SERVER_IP
+Add Value => x.x.x.x
+Choose Type => Variablr
+Check mark "Protact variable and "mask variable" form "Flags"
+Click "Add variable"
+Click "Add variable"
+Add Key => SERVER_IP
+Add Value => x.x.x.x
+Choose Type => Variable
+Check mark "Protact variable and "mask variable" form "Flags"
+Click "Add variable"
+Click "Add variable"
+Add Key => prodenv
+Add Value => copy and paste your .env
+Choose Type => File
+Check mark "Protact variable" form "Flags"
+Click "Add variable"
+
+#Add Tags data for deployment
+goto gitlab your_project
+click setting
+click ci/cd
+expand Runners
+click edit for Available specific runners
+Add data to Tags file below
+	master, prod_deployment
+
+##Check Piplines
+goto gitlab your_project
+Click CI/CD > Pipelines
+if your configuration bulid stag pass
+Click prod_deployment and run
+
+#Check container
+goto server with ssh
+docker container ls -all
+curl localhost:8080
+
+#Install nginx proxy server for docker
+
+
+
+
 
