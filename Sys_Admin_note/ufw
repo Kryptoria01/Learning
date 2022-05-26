@@ -1,6 +1,12 @@
 #Check Port from computer
 sudo ss -tulwn | grep LISTEN
 
+#Check openssh server
+sudo apt list --installed | grep openssh-server
+
+#Install ssh
+sudo apt install openssh-server
+
 #Check UFW status details
 sudo ufw status verbose
 
