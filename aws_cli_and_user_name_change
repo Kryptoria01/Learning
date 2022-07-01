@@ -1,6 +1,8 @@
+
 #Install awscli
 sudo apt install awscli
-
+	https://linuxhint.com/install_aws_cli_ubuntu/
+	
 #Check aws version
 aws --version
 
@@ -19,3 +21,6 @@ aws iam list-users
 
 #Change User Name
 aws iam update-user --user-name old_name --new-user-name new_name
+
+#Remove aws cli config
+rm -v ~/.aws/config ~/.aws/credentials
