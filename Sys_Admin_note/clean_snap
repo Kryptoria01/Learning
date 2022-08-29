@@ -1,7 +1,11 @@
-1. Show snap app list
+1.Snap Update
+killall snap-store
+snap refresh
+
+2. Show snap app list
 snap list --all
 
-2. Create file for clean_snap.sh
+3. Create file for clean_snap.sh
 
 vi clean_snap.sh
 #!/bin/bash
@@ -13,8 +17,8 @@ vi clean_snap.sh
          snap remove "$snapname" --revision="$revision"
      done
 
-3. Change Permission
+4. Change Permission
 chmod +x clean_snap.sh
 
-4. Run sh file
+5. Run sh file
 sudo ./clean_snap.sh
