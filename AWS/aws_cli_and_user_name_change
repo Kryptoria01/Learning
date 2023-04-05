@@ -22,8 +22,11 @@ aws iam list-users
 #Change User Name
 aws iam update-user --user-name old_name --new-user-name new_name
 
+#Show ls
+aws s3 ls
+
 #Download AWS S3
-aws s3 cp s3://bucket_name . --recursive
+aws s3 cp s3:	//bucket_name . --recursive
 
 #Upload AWS S3
 aws s3 cp . s3://bucket_name/ --recursive

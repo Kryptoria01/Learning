@@ -23,6 +23,9 @@ git status
 ##Add file to git and create commit
 git add .
 git commit -m "your desire commit"
+git branch -M main
+git remote add origin 
+git push origin main
 
 ##Show version history
 git log --pretty=oneline
@@ -105,7 +108,7 @@ git push origin main		//git push from app2 (another person push already)
 git pull origin main		//git pull from app2 (conflict error)
 			(you choose desire line, other delete and save)
 git commit -am "conflict resolve"
-git push orgin main
+git push origin main
 
 -------------------------------------------
 
